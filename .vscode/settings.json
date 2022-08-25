@@ -1,0 +1,88 @@
+{
+    "files.exclude": {
+        ".gitignore":true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    "todohighlight.isEnable": true,
+    "todohighlight.defaultStyle": {
+        "backgroundColor": "transparent",
+    },
+    "todohighlight.exclude": [
+        "**/*.**"
+    ],
+    "todohighlight.include": [
+        "**/*.java",
+        "**/*.py",
+        "**/*.txt",
+        "**/*.sh",
+        "**/*.tex",
+        "**/*.sql",
+        "**/*.vb",
+        "**/*.cs",
+        "**/*.m",
+    ],
+    "todohighlight.isCaseSensitive": true,
+    "todohighlight.keywords": [
+        {
+            "text": "TODO",
+            "color": "#ff00aa",
+            "overviewRulerColor": "#ff00aa",
+            "isWholeLine": false,
+            "cursor": "pointer",
+        },
+        {
+            "text": "DONE",
+            "isWholeLine": false,
+            "color": "Lime",
+            "overviewRulerColor": "Lime",
+            "cursor": "pointer",
+        },
+        {
+            "text": "DEF",
+            "isWholeLine": false,
+            "color": "GreenYellow",
+            "overviewRulerColor": "GreenYellow",
+            "cursor": "pointer",
+        },
+        {
+            "text": "IDE",
+            "isWholeLine": false,
+            "color": "Yellow",
+            "overviewRulerColor": "Yellow",
+            "cursor": "pointer",
+        },
+        {
+            "text": "ALG",
+            "isWholeLine": false,
+            "color": "Gold",
+            "overviewRulerColor": "Gold",
+            "cursor": "pointer",
+        },
+        {
+            "text": "ILU",
+            "isWholeLine": false,
+            "color": "DarkOrange",
+            "overviewRulerColor": "DarkOrange",
+            "cursor": "pointer",
+        },
+        {
+            "text": "PRO",
+            "isWholeLine": false,
+            "color": "OrangeRed",
+            "overviewRulerColor": "OrangeRed",
+            "cursor": "pointer",
+        },
+        {
+            "text": "EXE",
+            "isWholeLine": false,
+            "color": "Crimson",
+            "overviewRulerColor": "Crimson",
+            "cursor": "pointer",
+        }
+    ]
+}

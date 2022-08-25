@@ -1,0 +1,11 @@
+__instance_var_name
+ClassName
+ExceptionName
+local_var_name
+global_var_name
+function_parameter_name
+function_name
+method_name
+module_name
+package_name
+GLOBAL_CONSTANT_NAME
