@@ -1,2 +1,5 @@
+from pyscraper.tree import Tree
+
 class Painter:
-    pass
+    def get_paint(tree : Tree):
+        pass
