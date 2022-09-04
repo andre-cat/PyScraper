@@ -1,4 +1,4 @@
-from nary_node import _NaryNode as Node
+from Node import NaryNode as Node
 
 class NaryTree:
     def __init__(self, info: str = None) -> "NaryTree":
@@ -22,3 +22,5 @@ class NaryTree:
             print(f'{" " * spaces}|--{str(node.get(iterator))}');
             if node.get(0).get(0) != None:
                 self.__draw(node, spaces + 3);
+    
+    

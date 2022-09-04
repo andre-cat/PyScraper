@@ -1,0 +1,2 @@
+python -m unittest filename.py.
+python -m unittest test_utils.py
