@@ -1,5 +1,0 @@
-Window.show();
-String link = Browser.getLink();
-File html = Browser(String link);
-Tree = Scraper(File html);
-Painter.PaintTree(Tree tree);

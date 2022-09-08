@@ -1,5 +1,6 @@
 from pyscraper import pyscraper
 from pyscraper.constants import PATH
+from pyscraper.web.webpage import Page
 from pyglet import font # type: ignore
 from tkinter import Tk
 from tkinter import Label
@@ -16,13 +17,13 @@ def __quit_message() -> None:
 def __check_link() -> None:
     __scrapt_error_label.configure(text='')
     link: str = __scrap_entry.get()
-    html: tuple[str, ...] = pyscraper.get_html(link)
-    if html[1] == None:
+    page: Page = pyscraper.get_html(link)
+    if page.get_title == '':
         __scrapt_error_label.configure(text='Invalid URL', foreground='MediumVioletRed')
     else:
         __scrapt_error_label.configure(text='Page downloaded!', foreground='GreenYellow')
-        pyscraper.print_html(html)
-        pyscraper.write_html(html[1])
+        pyscraper.print_html(page)
+        pyscraper.write_html(page)
     window.after(2000,__quit_message)
 
 window : Tk = Tk()
