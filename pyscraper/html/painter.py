@@ -1,5 +1,7 @@
-from pyscraper.tree import Tree
+from pyscraper.tree.tree import Tree
 
-class Painter:
-    def get_paint(tree : Tree):
-        pass
+def get_paint(tree : Tree):
+    pass
+
+def paint_html():
+    pass

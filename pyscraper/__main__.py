@@ -1,4 +1,4 @@
-from pyscraper.window import Window
+from pyscraper import window
 
 if __name__ == '__main__':
-    Window()
+    window

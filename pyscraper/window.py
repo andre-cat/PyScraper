@@ -1,170 +1,91 @@
-from pyscraper.pyscraper import PyScraper
+from pyscraper import pyscraper
 from pyscraper.constants import PATH
-from pyglet import font
+from pyglet import font # type: ignore
 from tkinter import Tk
-from tkinter.ttk import Style
-from tkinter.ttk import Notebook
-from tkinter import Frame
 from tkinter import Label
 from tkinter import Entry
 from tkinter import Button
-from tkinter.scrolledtext import ScrolledText 
-from tkinter import constants as tkcons
+from tkinter.ttk import Style as TStyle
+from tkinter.ttk import Notebook as TNotebook
+from tkinter.ttk import Frame as TFrame
+from tkinter.ttk import Label as TLabel
 
-class Window(Tk):
+def __quit_message() -> None:
+    __scrapt_error_label.configure(text='')
 
-    def __init__(self):
-        super().__init__()
-        
-        self.title('PyScraper')
-        self['bg'] = 'white'
+def __check_link() -> None:
+    __scrapt_error_label.configure(text='')
+    link: str = __scrap_entry.get()
+    html: tuple[str, ...] = pyscraper.get_html(link)
+    if html[1] == None:
+        __scrapt_error_label.configure(text='Invalid URL', foreground='MediumVioletRed')
+    else:
+        __scrapt_error_label.configure(text='Page downloaded!', foreground='GreenYellow')
+        pyscraper.print_html(html)
+        pyscraper.write_html(html[1])
+    window.after(2000,__quit_message)
 
-        houses = [None] * 8
-        inputs = []
-        outputs = []
+window : Tk = Tk()
 
-        # Set fonts
-        font.add_directory(PATH + '/resources/fonts/')
-        font_title = 'Superstar'
-        font_text = '04b03'
-        font_misc = '3Dventure'
+window.title('PyScraper')
+window['bg'] = 'white'
+window.resizable(True, True)
 
-        midnight_blue = '#031a6b'
-        indigo_dye = '#033860'
-        cg_blue = '#087ca7'
-        yale_blue = '#004385'
-        cerulean_crayola = '#05b2dc'
+# Set fonts
+font.add_directory(PATH + '/resources/fonts/')
+font_title: str = 'Superstar'
+font_label: str = '04b03'
+font_entry: str = 'Pixolletta8px'
+font_ntabs: str = 'Silkscreen'
 
-        width = 500
-        height = 500
-        x = (int)(self.winfo_screenwidth() / 2 - width / 2)
-        y = (int)(self.winfo_screenheight() / 2 - height / 2)
-        self.geometry(str(width) + 'x' + str(height) + '+' + str(x) + '+' + str(y))
+midnight_blue: str = '#031A6B'
+indigo_dye: str = '#033860'
+cg_blue: str = '#087CA7'
+cerulean_crayola: str = '#05B2DC'
+medium_violet_red: str = '#C71585'
+green_yellow: str = 'GreenYellow'
 
-        estyle = Style()
-        estyle.configure('TNotebook', background=yale_blue)
+width: int = 500
+height: int = 500
+x: int = (int)(window.winfo_screenwidth() / 2 - width / 2)
+y: int = (int)(window.winfo_screenheight() / 2 - height / 2)
+window.geometry(f'{width}x{height}+{x}+{y}')
 
-        book = Notebook(self)
+style: TStyle = TStyle(window)
 
-        link_tab = Frame(master=book, background='red')
-        estyle.configure('TFrame', background=indigo_dye)
+style.configure('.', background=indigo_dye, foreground='White', font=(font_label, 12))
+style.configure('TNotebook.Tab', padding=[7, 3], font=(font_ntabs, 10), foreground=indigo_dye)
 
-        # Tab code 1
-        tab_1 = Frame(master=book, background=indigo_dye)
-        tab_1.grid_columnconfigure(0, weight=1)
-        tab_1.grid_rowconfigure([1, 2, 4], weight=1)
+book = TNotebook(window)
 
-        title_1 = Label(master=tab_1, text='PROBLEMA 1', font=(font_title, 25), foreground='White', background=indigo_dye)
-        title_1.grid(column=0, row=0, pady=5)
+# TAB_1
+scrap_tab: TFrame = TFrame(master=book)
+scrap_tab.grid_columnconfigure(0, weight=1)
+scrap_tab.grid_rowconfigure(0, weight=1)
+scrap_tab.grid_rowconfigure(1, weight=1)
+scrap_tab.grid_rowconfigure(2, weight=1)
 
-        # Days input
-        days_element = Frame(master=tab_1, background=indigo_dye)
-        days_element.grid(column=0, row=1)
+scrap_title: TLabel = TLabel(master=scrap_tab, text='HTML -> Tree', font=(font_title, 25))
+scrap_title.grid(row=0, column=0)
 
-        days_label = Label(master=days_element, text='Días de competencia en el vecindario:', font=(font_text, 12), foreground='White', background=indigo_dye)
-        days_label.pack(side=tkcons.TOP)
+scrap_entry_frame: TFrame = TFrame(master=scrap_tab)
+scrap_entry_frame.grid(row=1, column=0, padx=30, sticky='ew')
 
-        days_input = Entry(master=days_element, font=(font_text, 12), foreground=midnight_blue, background='GreenYellow', justify=tkcons.CENTER, width=4)
-        days_input.insert(0, '')
-        days_input.pack(side=tkcons.TOP)
+scrap_entry_label: TLabel = TLabel(master=scrap_entry_frame, text='Enter a link to generate a site structure tree:')
+scrap_entry_label.pack(side='top', fill='x', pady=5)
 
-        days_error = Label(master=days_element, font=(font_text, 10), foreground='#ff0095', background=indigo_dye)
-        days_error.pack(side=tkcons.TOP, fill=tkcons.BOTH, expand=True)
-        # End days input
+__scrap_entry = Entry(master=scrap_entry_frame, background='White', foreground='Grey', font=(font_entry, 11), justify='center')
+__scrap_entry.insert(0, 'about:blank')
+__scrap_entry.pack(side='top', fill='both', expand=True, pady=5)
 
-        # Inputs problem 1
-        input_element = Frame(master=tab_1, background=indigo_dye)
-        input_element.grid(column=0, row=2)
+__scrapt_error_label = Label(master=scrap_entry_frame, font=(font_ntabs, 11), background=indigo_dye)
+__scrapt_error_label.pack(side='top', fill='both', expand=True, pady=5)
 
-        input_label = Label(master=input_element, text='Entradas:', font=(font_text, 12), foreground='White', background=indigo_dye)
-        input_label.pack(side=tkcons.TOP)
+scrap_button: Button = Button(master=scrap_tab, text='Scrap', font=(font_title, 20), foreground=cerulean_crayola, background='White', width=7, borderwidth=0, command=__check_link)
+scrap_button.grid(row=2, column=0, pady=1)
 
-        big_box_1 = Frame(master=input_element, background=indigo_dye)
-        big_box_1.pack(side=tkcons.TOP)
+book.add(scrap_tab, text='Web Scrapper')
+book.pack(expand=True, fill='both')
 
-        for index in range(len(houses)):
-            box = Frame(master=big_box_1, background=indigo_dye, borderwidth=0)
-            box.grid(row=0, column=index, padx=5)
-
-            my_input = Entry(master=box, font=(font_text, 12), foreground=midnight_blue, background='GreenYellow', justify=tkcons.CENTER, width=3)
-            my_input.insert(0, '')
-            my_input.pack(side=tkcons.TOP)
-            inputs.append(my_input)
-
-            number = Label(master=box, text=(index + 1), font=(font_text, 12), foreground='White', background=indigo_dye)
-            number.pack(side=tkcons.TOP)
-
-        input_error = Label(master=input_element, font=(font_text, 10), foreground='#ff0095', background=indigo_dye)
-        input_error.pack(side=tkcons.TOP, fill=tkcons.BOTH, expand=True)
-        # End inputs problem 1
-
-        button_1 = Button(master=tab_1, text='Calcular', font=(font_title, 12), foreground=cerulean_crayola, background='White', borderwidth=0, command=PyScraper.do_this)
-        button_1.grid(column=0, row=3, pady=1)
-
-        # Outputs problem 1
-        output_element = Frame(master=tab_1, background=indigo_dye)
-        output_element.grid(column=0, row=4)
-
-        output_label = Label(master=output_element, text='Salidas:', font=(font_text, 12), foreground='White', background=indigo_dye)
-        output_label.pack(side=tkcons.TOP, fill=tkcons.BOTH, expand=True)
-
-        big_box_2 = Frame(master=output_element, background=cg_blue)
-        big_box_2.pack(side=tkcons.TOP)
-
-        for index in range(8):
-            box = Frame(master=big_box_2, background=indigo_dye, borderwidth=0)
-            box.grid(row=0, column=index)
-
-            my_output = Label(master=box, text='', font=(font_text, 12, 'bold'), foreground='White', background=cg_blue, width=4)
-            my_output.pack(side=tkcons.TOP)
-            outputs.append(my_output)
-
-            number = Label(master=box, text=(index + 1), font=(font_text, 12), foreground='White', background=indigo_dye)
-            number.pack(side=tkcons.TOP)
-        # End outputs problem 1
-        # End tab code 1
-
-        # Tab code 2
-        tab_2 = Frame(master=book, background=indigo_dye)
-        tab_2.grid_columnconfigure(0, weight=1)
-        tab_2.grid_rowconfigure([0, 1, 2, 3], weight=1)
-
-        title_2 = Label(master=tab_2, text='PROBLEMA 2', font=(font_title, 25), foreground='White', background=indigo_dye)
-        title_2.grid(column=0, row=0)
-
-        # Input problem 2
-        string_element = Frame(tab_2, background=indigo_dye)
-        string_element.grid(column=0, row=1)
-
-        string_label = Label(master=string_element, text='Cadena a permutar:', font=(font_text, 12), foreground='White', background=indigo_dye)
-        string_label.pack(side=tkcons.TOP)
-
-        string_input = Entry(master=string_element, font=(font_text, 12), foreground=midnight_blue, background='GreenYellow', justify=tkcons.CENTER, width=30)
-        string_input.insert(0, '')
-        string_input.pack(side=tkcons.TOP)
-        # En input problem 2
-
-        button_2 = Button(master=tab_2, text='Permutar', font=(font_title, 12), foreground=cerulean_crayola, background='White', borderwidth=0, command=PyScraper.do_this)
-        button_2.grid(column=0, row=2)
-
-        # Output problem 2
-        permutation_element = Frame(tab_2, background=indigo_dye)
-        permutation_element.grid(column=0, row=3, sticky=tkcons.EW, padx=100)
-
-        permutation_label = Label(master=permutation_element, text='Permutaciónes:', font=(font_text, 12), foreground='White', background=indigo_dye)
-        permutation_label.pack(side=tkcons.TOP)
-
-        permutation_output = ScrolledText(master=permutation_element, font=(font_text, 12), foreground='White', background=cg_blue, width=30, height=7, state=tkcons.DISABLED, wrap=tkcons.WORD)
-        permutation_output.pack(side=tkcons.TOP, fill=tkcons.BOTH, expand=True)
-        # End output problem 2
-        # End code 2
-
-        book.add(link_tab, text='Scraper')
-        book.add(tab_1, text='Scrapper')
-        book.add(tab_2, text='About')
-        book.pack(expand=True, fill=tkcons.BOTH)
-
-        permutation_output.focus()
-
-        self.mainloop()
-        # End self
+window.mainloop()
+# End window
