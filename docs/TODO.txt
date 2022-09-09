@@ -1,0 +1,6 @@
+TODO: Crear la clase Painter, Andrea.
+TODO: Crear ventana Tkinter del Painter, Andrea.
+TODO: Crear funcion anchura, David (!).
+TODO: Crear funcion anchura_maxima, David.
+TODO: Crear funcion altura_maxima, David.
+TODO: Crear ventana de pintado con dos botones.

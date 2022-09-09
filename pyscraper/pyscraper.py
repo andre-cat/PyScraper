@@ -7,8 +7,8 @@ from typing import Optional
 def get_html(link: str) -> Page:
     return browser.get_html(link)
 
-def print_html(html : Page) -> None:
-    browser.print_html(html)
+def print_html(page : Page) -> None:
+    browser.print_html(page)
 
-def write_html(html_name : Page) -> None:
-    scraper.write_html(html_name);
+def write_html(page : Page) -> None:
+    scraper.write_html(page);

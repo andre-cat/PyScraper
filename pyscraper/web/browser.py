@@ -12,6 +12,10 @@ def get_html(link: str) -> Page:
             response: Response = requests.get(link)
             title: str = string.set_snake_case(string.make_alphanumeric(string.drop_accents(fromstring(response.content).findtext('.//title'))))[0:200]
             type = response.headers['content-type']
+            if type.find('html') != -1:
+                type = 'html'
+            elif type.find('xml') != -1:
+                type = 'xml'
             elements: str = response.text
             return Page(title, type, elements)
         else:

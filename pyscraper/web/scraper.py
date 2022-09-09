@@ -7,17 +7,23 @@ from pyscraper.constants import PARENT_PATH
 from pyscraper.web.webpage import Page
 
 def write_html(page : Page) -> None:
-    with open(f'{PARENT_PATH}/{page.get_title()}.{page.get_type}', 'r') as html:
-        soup : BeautifulSoup = BeautifulSoup(html, 'html.parser')
+    with open(f'{PARENT_PATH}/{page.get_title()}.{page.get_type()}', 'r') as file:
+    #with open(f'{PARENT_PATH}/page.html', 'r') as file:
+        soup : BeautifulSoup = BeautifulSoup(file, 'html.parser')
+        
+        #if page.get_type() == 'html':
+        #    soup = BeautifulSoup(file, 'html.parser')
+        #elif page.get_type() == 'xml':
+        #    soup = BeautifulSoup(file, 'xml')
 
-        for element in soup.contents:
-            if type(element) == Doctype:
-                soup.decompose()
+#for element in soup.contents:
+#if type(element) == Doctype:
+#soup.decompose()
 
         if len(soup.contents) != 0:
             __walk(soup.contents[0],0)
 
-def __walk(element:PageElement, spaces : int) -> None:
+def __walk(element: PageElement, spaces : int) -> None:
     if type(element) != NavigableString:
 
         print(f'{" " * spaces}<{element.name}>')
