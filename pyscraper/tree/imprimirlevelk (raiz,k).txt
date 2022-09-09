@@ -1,4 +1,4 @@
-imprimirlevelk (raiz,k)
+len_levelk (raiz,k)
 si ( raiz == nulo)
 retorne -1
 fin si
@@ -14,7 +14,7 @@ si raiz <> nulo
  j<-j+1
  arr[j]<- q[i]
  fin para
-retorne arr
+retorne arr.len()
 sino
 t<-dequeue(top,base+1,len,q[top])
 
@@ -28,4 +28,28 @@ retorne:
 fin si
 fin funcion
 # ya obtenido los nodos al nivel k solo uso  el metodo len para obtener la anchura del nivel.
+
+max_anchura(raiz, h)
+
+si (raiz <> nulo) ent
+
+ max<-0
+  
+para (nivel=0, h,+1 ) haga
+l = len_levelk(raiz, nivel)
+si l > max ent
+max <- l
+sino
+continue
+fin si
+fin para
+retorne max
+fin funcion
+
+
+
+
+
+
+
 
