@@ -1,1 +1,1 @@
-venv deactivate
+[venv_name] deactivate

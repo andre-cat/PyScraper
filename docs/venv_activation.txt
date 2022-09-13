@@ -1,1 +1,1 @@
-venvname\scripts\activate
+[venv_name]\scripts\activate
