@@ -15,11 +15,7 @@ class TestTree(unittest.TestCase):
             tree.get_root().get_child(2).add_child("E")
             tree.get_root().get_child(2).add_child("F")
 
-            s = tree.get_stream(id=True)
-
-            print(s)
-            print(tree.get_root().get_child(2).get_id())
-            #tree.print(id=False)
+            tree.print(id=False)
         except Exception as exception:
             print_error(__name__, exception)
 

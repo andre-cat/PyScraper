@@ -4,7 +4,7 @@ from pyscraper.commons import PARENT_PATH
 from pyscraper.commons import String
 from pyscraper.commons import File
 from pyscraper.web.page import Page
-
+from sys import exc_info  # type : ignore
 
 def get_page(link: str) -> Page:
     try:
@@ -21,7 +21,9 @@ def get_page(link: str) -> Page:
         else:
             return Page("about_blank", "", "")
     except Exception as exception:
-        raise Exception(exception)
+        exc_type, exc_obj, exc_tb = exc_info()  
+        error: str = f"{str(exception)} | {__name__} | Line {exc_tb.tb_lineno} -> " #type:ignore
+        raise Exception(error)
 
 
 def print_page(page: Page) -> None:

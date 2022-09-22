@@ -18,20 +18,20 @@ class Node:
         try:
             self.__info = info
         except Exception as exception:
-            print_error(__name__, exception)
+            print_error(Node.__qualname__, exception)
 
     def get_id(self) -> int:
         try:
             return self.__id
         except Exception as exception:
-            print_error(__name__, exception)
+            print_error(Node.__qualname__, exception)
             return 0
 
     def set_id(self, id: int) -> None:
         try:
             self.__id = id
         except Exception as exception:
-            print_error(__name__, exception)
+            print_error(Node.__qualname__, exception)
 
     def add_child(self, info: str) -> None:
         node: Node = Node(info)
@@ -40,7 +40,7 @@ class Node:
         node.__parent = self
         self.__children.append(node)
 
-    def do_i_have_children(self) -> bool:
+    def has_children(self) -> bool:
         if len(self.__children) > 0:
             return True
         else:
@@ -69,4 +69,8 @@ class Node:
         return self.__parent
 
     def get_number_children(self) -> int:
-        return len(self.__children)
+        try:
+            number_children : int = len(self.__children)
+            return number_children
+        except Exception:
+            return 0  # type: ignore

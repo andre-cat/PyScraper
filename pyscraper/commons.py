@@ -42,3 +42,7 @@ PARENT_PATH: Final[str] = path.dirname(path.dirname(path.dirname(__file__)))
 # METHODS
 def print_error(file: str, exception: Exception):
     print(f"EXCEPTION ON {file}: {exception}")
+
+class CustomException(Exception):
+    def __init__(self, message: str):
+        self.__message = 'Tree exception: ' + message;
